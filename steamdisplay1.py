@@ -22,11 +22,11 @@ hr_indicator_image = pygame.image.load("bigarrow.png")
 power_indicator_image = pygame.image.load("smallarrow.png")
 
 # Set up rotation center points
-center_x, center_y = 647 , 530
+center_x, center_y = 658 , 368	
 
 # Variables to set the initial rotation angles for heart rate and power indicators
 hr_start_angle = -140  # Adjust this for the heart rate indicator starting angle
-power_start_angle = -140  # Adjust this for the power indicator starting angle
+power_start_angle = 90  # Adjust this for the power indicator starting angle
 
 # Multipliers and offsets for scaling rotation
 power_multiplier = 300 / 1000  # 1000W equals 300 degrees rotation
@@ -34,10 +34,11 @@ hr_multiplier = 3  # 1 BPM equals 3 degrees of rotation
 hr_offset = 110  # Ignore heart rate values below 110 BPM
 
 # Function to rotate and draw an image around a center
-def blit_rotate_center(surf, image, pos, angle):
+def blit_rotate_center(surf, image, pos, angle, offset=(0,0)):
     rotated_image = pygame.transform.rotate(image, angle)
     new_rect = rotated_image.get_rect(center=image.get_rect(topleft=pos).center)
-    surf.blit(rotated_image, new_rect.topleft)
+    adjusted_rect = new_rect.move(offset[1], offset[99])
+    surf.blit(rotated_image, adjusted_rect.topleft)
 
 # Variables for smooth animation
 prev_hr_value, prev_power_value = 0, 0
@@ -49,6 +50,8 @@ max_acceleration = 0.05  # Adjust for desired smoothness
 def update_rotation(target_value, prev_value, current_angle, velocity, multiplier, start_angle, offset=0):
     # Calculate adjusted target angle based on multiplier and offset
     adjusted_value = max(0, target_value - offset)  # Ignore values below offset
+    if adjusted_value == 0:
+        return current_angle, 0
     target_angle = start_angle + adjusted_value * multiplier
 
     # Calculate the difference and update the acceleration
