@@ -34,7 +34,7 @@ hr_multiplier = 3  # 1 BPM equals 3 degrees of rotation
 hr_offset = 110  # Ignore heart rate values below 110 BPM
 
 # Function to rotate and draw an image around a center
-def blit_rotate_center(surf, image, pos, angle, offset=(0, 0)):
+def blit_rotate_center(surf, image, pos, angle, offset=(-75, -340)):
     rotated_image = pygame.transform.rotate(image, angle)
     new_rect = rotated_image.get_rect(center=image.get_rect(topleft=pos).center)
     adjusted_rect = new_rect.move(offset[0], offset[1])
@@ -69,8 +69,9 @@ def update_rotation(target_value, current_angle, velocity, multiplier, start_ang
         velocity -= acceleration
 
     # Dampen velocity to avoid overshooting
-    damping = 0.9
-    velocity *= damping
+    base_damping = 0.05  # Base damping factor
+    damping_factor = base_damping + (1 - abs(diff) / 360) * 0.2  # Adjust this scaling factor as needed
+    velocity *= (1 - damping_factor)
 
     # Update current angle by the velocity
     current_angle += velocity
