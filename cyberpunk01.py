@@ -36,10 +36,10 @@ def smooth_value(queue, new_value, smoothing_time, fps):
     return sum(queue) / len(queue) if queue else 0
 
 def calculate_heart_arc(value):
-    return 65 * math.pi * value - 1314 * math.pi
+    return math.pi * value / 100
 
 def calculate_power_arc(value):
-    result = 800 * math.pi * value + 43 * math.pi
+    result = math.pi * value / 300
     return min(result, 2 * math.pi)  # Limit to 2π
 
 # Data queues for smoothing
@@ -132,12 +132,12 @@ while running:
 
     # Draw text boxes
     if smoothed_heart_rate > 0:
-        heart_text = font.render(f"Heart Rate: {int(smoothed_heart_rate)}", True, WHITE)
+        heart_text = font.render(f"HR: {int(smoothed_heart_rate)}", True, WHITE)
     else:
         heart_text = font.render("No Heart Rate", True, WHITE)
 
     if smoothed_power > 0:
-        power_text = font.render(f"Power: {int(smoothed_power)}", True, WHITE)
+        power_text = font.render(f"PWR: {int(smoothed_power)}", True, WHITE)
     else:
         power_text = font.render("No Power", True, WHITE)
 
