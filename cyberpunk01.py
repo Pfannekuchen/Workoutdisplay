@@ -127,11 +127,11 @@ while running:
 
     # Draw heart rate arc
     if smoothed_heart_rate > 0:
-        pygame.draw.arc(screen, RED, (227, -49, 900, 900), math.pi / 2, math.pi / 2 + heart_arc_angle, 10)
+        pygame.draw.arc(screen, RED, (227, -49, 900, 900), math.pi / 2, math.pi / 2 + heart_arc_angle, 400)
 
     # Draw power arc
     if smoothed_power > 0:
-        pygame.draw.arc(screen, CYAN, (456, 159, 455, 455), math.pi / 2, math.pi / 2 + power_arc_angle, 10)
+        pygame.draw.arc(screen, CYAN, (456, 159, 455, 455), math.pi / 2, math.pi / 2 + power_arc_angle, 220)
 
     # Draw text boxes
     if smoothed_heart_rate > 0:
