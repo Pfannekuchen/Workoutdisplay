@@ -24,6 +24,9 @@ BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 CYAN = (10,196,169)
 
+# Arc width modifier
+ARC_WIDTH = 400  # Change this value to adjust the thickness of the arcs
+
 # Text settings
 font = pygame.font.SysFont("Arial", 36)
 
